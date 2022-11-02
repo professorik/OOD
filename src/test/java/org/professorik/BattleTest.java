@@ -8,6 +8,42 @@ import org.professorik.characters.Warrior;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BattleTest {
+
+    @Test
+    @DisplayName("Smoke test for Warrior and Knight task")
+    void smokeTest1() {
+        var chuck = new Warrior();
+        var bruce = new Warrior();
+        var carl = new Knight();
+        var dave = new Warrior();
+        var mark = new Warrior();
+
+        assertTrue(Battle.fight(chuck, bruce));
+        assertFalse(Battle.fight(dave, carl));
+        assertTrue(chuck.isAlive());
+        assertFalse(bruce.isAlive());
+        assertTrue(carl.isAlive());
+        assertFalse(dave.isAlive());
+        assertFalse(Battle.fight(carl, mark));
+        assertFalse(carl.isAlive());
+
+        var myArmy = new Army();
+        myArmy.addUnits(Knight::new, 3);
+
+        var enemyArmy = new Army();
+        enemyArmy.addUnits(Warrior::new, 3);
+
+        var army3 = new Army();
+        army3.addUnits(Warrior::new, 20);
+        army3.addUnits(Knight::new, 5);
+
+        var army4 = new Army();
+        army4.addUnits(Warrior::new, 30);
+
+        assertTrue(Battle.fight(myArmy, enemyArmy));
+        assertFalse(Battle.fight(army3, army4));
+    }
+
     @Test
     @DisplayName("1. Fight")
     void fight1() {

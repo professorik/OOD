@@ -8,15 +8,23 @@ public class Warrior {
         return ATTACK;
     }
 
-    public void getDamage(int damage) {
-        health = Math.max(0, health - damage);
-    }
-
     public int getHealth() {
         return health;
     }
 
     public boolean isAlive() {
         return getHealth() > 0;
+    }
+
+    private void setHealth(int health) {
+        this.health = Math.max(0, health);
+    }
+
+    public void hit(Warrior opponent) {
+        opponent.receiveDamage(getAttack());
+    }
+
+    protected void receiveDamage(int damage) {
+        setHealth(getHealth() - damage);
     }
 }
