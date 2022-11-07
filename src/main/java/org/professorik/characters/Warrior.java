@@ -27,4 +27,10 @@ public class Warrior {
     protected void receiveDamage(int damage) {
         setHealth(getHealth() - damage);
     }
+
+    @Override
+    public String toString() {
+        return "%s {health = %d, attack = %d}"
+                .formatted(getClass().getSimpleName(), getHealth(), getAttack());
+    }
 }

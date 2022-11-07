@@ -14,17 +14,13 @@ public class Battle {
     }
 
     public static boolean fight(Army army1, Army army2) {
-        while (true) {
-            var warrior1 = army1.peekFirst();
-            if (warrior1 == null) return false;
+        var it1 = army1.firstAlive();
+        var it2 = army2.firstAlive();
 
-            var warrior2 = army2.peekFirst();
-            if (warrior2 == null) return true;
-
-            if (fight(warrior1, warrior2))
-                army2.removeFirst();
-            else
-                army1.removeFirst();
+        while (it1.hasNext() && it2.hasNext()) {
+            fight(it1.next(), it2.next());
         }
+
+        return it1.hasNext();
     }
 }

@@ -9,6 +9,5 @@ public class Main {
                 .addUnits(Warrior::new, 1)
                 .addUnits(Knight::new, 10)
                 .addUnits(Warrior::new, 2);
-
     }
 }
