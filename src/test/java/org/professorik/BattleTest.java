@@ -33,7 +33,7 @@ class BattleTest {
     }
 
     @Test
-    @DisplayName("Smoke test for Warrior and Knight task")
+    @DisplayName("Smoke test for Army task")
     void smokeTest2() {
         var chuck = new Warrior();
         var bruce = new Warrior();

@@ -2,7 +2,15 @@ package org.professorik.characters;
 
 public class Warrior {
     static final int ATTACK = 5;
-    private int health = 50;
+    private int health;
+
+    public Warrior() {
+        this(50);
+    }
+
+    protected Warrior(int initHealth) {
+        health = initHealth;
+    }
 
     public int getAttack() {
         return ATTACK;

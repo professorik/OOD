@@ -1,8 +1,21 @@
 package org.professorik.characters;
 
 public class Defender extends Warrior {
-    static final int ATTACK = 7;
+    static final int ATTACK = 3;
     static final int DEFENCE = 2;
+
+    public Defender() {
+        super(60);
+    }
+
+    public int getDefence() {
+        return DEFENCE;
+    }
+
+    @Override
+    protected void receiveDamage(int damage) {
+        super.receiveDamage(Math.max(0, damage - getDefence()));
+    }
 
     @Override
     public int getAttack() {
