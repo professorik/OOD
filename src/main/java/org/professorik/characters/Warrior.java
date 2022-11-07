@@ -24,16 +24,17 @@ public class Warrior {
         return getHealth() > 0;
     }
 
-    private void setHealth(int health) {
+    protected void setHealth(int health) {
         this.health = Math.max(0, health);
     }
 
-    public void hit(Warrior opponent) {
-        opponent.receiveDamage(getAttack());
+    public int hit(Warrior opponent) {
+        return opponent.receiveDamage(getAttack());
     }
 
-    protected void receiveDamage(int damage) {
+    protected int receiveDamage(int damage) {
         setHealth(getHealth() - damage);
+        return damage;
     }
 
     @Override

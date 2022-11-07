@@ -13,8 +13,10 @@ public class Defender extends Warrior {
     }
 
     @Override
-    protected void receiveDamage(int damage) {
-        super.receiveDamage(Math.max(0, damage - getDefence()));
+    protected int receiveDamage(int damage) {
+        var dmg = Math.max(0, damage - getDefence());
+        super.receiveDamage(dmg);
+        return dmg;
     }
 
     @Override

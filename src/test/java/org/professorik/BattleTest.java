@@ -6,9 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.professorik.characters.Defender;
-import org.professorik.characters.Knight;
-import org.professorik.characters.Warrior;
+import org.professorik.characters.*;
 
 import java.util.stream.Stream;
 
@@ -108,7 +106,7 @@ class BattleTest {
         assertTrue(Battle.fight(army3, army4));
     }
 
-    /*@Test
+    @Test
     @DisplayName("Smoke test for Vampire task")
     void smokeTest4() {
         var chuck = new Warrior();
@@ -161,7 +159,7 @@ class BattleTest {
 
         assertFalse(Battle.fight(myArmy, enemyArmy));
         assertTrue(Battle.fight(army3, army4));
-    }*/
+    }
 
 
     /*@Test
@@ -301,6 +299,30 @@ class BattleTest {
         var res = Battle.fight(unit_2, unit_3);
 
         assertFalse(res);
+    }
+
+    @Test
+    @DisplayName("8. Fight")
+    void fight8() {
+        var unit_1 = new Defender();
+        var unit_2 = new Rookie();
+
+        Battle.fight(unit_1, unit_2);
+
+        assertEquals(60, unit_1.getHealth());
+    }
+
+    @Test
+    @DisplayName("9. Fight")
+    void fight9() {
+        var unit_1 = new Defender();
+        var unit_2 = new Rookie();
+        var unit_3 = new Warrior();
+
+        Battle.fight(unit_1, unit_2);
+        var res = Battle.fight(unit_1, unit_3);
+
+        assertTrue(res);
     }
 
     @ParameterizedTest
