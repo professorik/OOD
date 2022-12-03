@@ -8,14 +8,14 @@ public class Vampire extends Warrior {
         super(40);
     }
 
-    private double getVampirism() {
-        return VAMPIRISM / 100d;
+    private int getVampirism() {
+        return VAMPIRISM;
     }
 
     @Override
     public int hit(Warrior opponent) {
         var hit = super.hit(opponent);
-        setHealth(getHealth() + (int) (hit * getVampirism()));
+        setHealth(getHealth() + hit * getVampirism() / 100);
         return hit;
     }
 

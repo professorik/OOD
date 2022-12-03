@@ -1,27 +1,67 @@
 package org.professorik;
 
 import org.professorik.characters.Warrior;
+import org.professorik.characters.interfaces.HasWarriorBehind;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.NoSuchElementException;
-import java.util.Queue;
+import java.util.*;
 import java.util.function.Supplier;
 
 public class Army {
-    private Queue<Warrior> troops = new LinkedList<>();
+    private Collection<Warrior> troops = new ArrayList<>();
+    private Warrior last;
 
-    public Iterator<Warrior> firstAlive() {
+    static class UnitInArmy extends Warrior implements HasWarriorBehind {
+        Warrior warrior;
+        Warrior behind;
+
+        public UnitInArmy(Warrior warrior) {
+            this.warrior = warrior;
+        }
+
+        @Override
+        public Warrior getWarriorBehind() {
+            return behind;
+        }
+
+        @Override
+        public int getAttack() {
+            return warrior.getAttack();
+        }
+
+        @Override
+        public int getHealth() {
+            return warrior.getHealth();
+        }
+
+        @Override
+        public boolean isAlive() {
+            return warrior.isAlive();
+        }
+
+        @Override
+        public int hit(Warrior opponent) {
+            return warrior.hit(opponent);
+        }
+    }
+
+    public Iterator<Warrior> firstAliveIterator() {
         return new FirstAliveIterator();
     }
 
     private class FirstAliveIterator implements Iterator<Warrior> {
+        Iterator<Warrior> it = troops.iterator();
+        Warrior champion;
+
         @Override
         public boolean hasNext() {
-            while (peekFirst() != null && !peekFirst().isAlive()) {
-                removeFirst();
+            if (champion != null && champion.isAlive()) {
+                return true;
             }
-            return peekFirst() != null;
+            while (it.hasNext()) {
+                champion = it.next();
+                if (champion.isAlive()) return true;
+            }
+            return false;
         }
 
         @Override
@@ -29,12 +69,16 @@ public class Army {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            return peekFirst();
+            return champion;
         }
     }
 
     public Army addUnits(Warrior warrior) {
+        if (last != null) {
+            last.setNextBehind(warrior);
+        }
         troops.add(warrior);
+        last = warrior;
         return this;
     }
 
@@ -43,13 +87,5 @@ public class Army {
             addUnits(factory.get());
         }
         return this;
-    }
-
-    private Warrior peekFirst() {
-        return troops.peek();
-    }
-
-    private void removeFirst() {
-        troops.poll();
     }
 }

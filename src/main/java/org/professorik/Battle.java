@@ -14,8 +14,8 @@ public class Battle {
     }
 
     public static boolean fight(Army army1, Army army2) {
-        var it1 = army1.firstAlive();
-        var it2 = army2.firstAlive();
+        var it1 = army1.firstAliveIterator();
+        var it2 = army2.firstAliveIterator();
 
         while (it1.hasNext() && it2.hasNext()) {
             fight(it1.next(), it2.next());
