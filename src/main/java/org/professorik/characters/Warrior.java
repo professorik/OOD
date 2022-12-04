@@ -44,6 +44,10 @@ public class Warrior {
         return damage;
     }
 
+    public int straightHit(Warrior opponent) {
+        return opponent.receiveDamage(getAttack());
+    }
+
     protected int receiveDamage(int damage) {
         setHealth(getHealth() - damage);
         return damage;

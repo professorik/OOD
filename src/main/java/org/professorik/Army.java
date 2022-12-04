@@ -73,6 +73,10 @@ public class Army {
         }
     }
 
+    public List<Warrior> getLiving() {
+        return troops.stream().filter(Warrior::isAlive).toList();
+    }
+
     public Army addUnits(Warrior warrior) {
         if (last != null) {
             last.setNextBehind(warrior);

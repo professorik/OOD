@@ -23,4 +23,10 @@ public class Defender extends Warrior {
     public int getAttack() {
         return ATTACK;
     }
+
+    @Override
+    public String toString() {
+        return "%s {health = %d, attack = %d, defence = %d}"
+                .formatted(getClass().getSimpleName(), getHealth(), getAttack(), getDefence());
+    }
 }
