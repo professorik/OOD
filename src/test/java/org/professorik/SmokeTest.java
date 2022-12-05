@@ -291,6 +291,6 @@ class SmokeTest {
 
         assertFalse(Battle.fight(myArmy, enemyArmy));
         assertTrue(Battle.fight(army3, army4));
-        //assertFalse(Battle.straightFight(army5, army6));
+        assertFalse(Battle.straightFight(army5, army6));
     }
 }
