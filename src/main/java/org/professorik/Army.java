@@ -1,48 +1,13 @@
 package org.professorik;
 
 import org.professorik.characters.Warrior;
-import org.professorik.characters.interfaces.HasWarriorBehind;
 
 import java.util.*;
 import java.util.function.Supplier;
 
 public class Army {
-    private Collection<Warrior> troops = new ArrayList<>();
+    private final Collection<Warrior> troops = new ArrayList<>();
     private Warrior last;
-
-    static class UnitInArmy extends Warrior implements HasWarriorBehind {
-        Warrior warrior;
-        Warrior behind;
-
-        public UnitInArmy(Warrior warrior) {
-            this.warrior = warrior;
-        }
-
-        @Override
-        public Warrior getWarriorBehind() {
-            return behind;
-        }
-
-        @Override
-        public int getAttack() {
-            return warrior.getAttack();
-        }
-
-        @Override
-        public int getHealth() {
-            return warrior.getHealth();
-        }
-
-        @Override
-        public boolean isAlive() {
-            return warrior.isAlive();
-        }
-
-        @Override
-        public int hit(Warrior opponent) {
-            return warrior.hit(opponent);
-        }
-    }
 
     public Iterator<Warrior> firstAliveIterator() {
         return new FirstAliveIterator();
@@ -77,13 +42,12 @@ public class Army {
         return troops.stream().filter(Warrior::isAlive).toList();
     }
 
-    public Army addUnits(Warrior warrior) {
+    public void addUnits(Warrior warrior) {
         if (last != null) {
             last.setNextBehind(warrior);
         }
         troops.add(warrior);
         last = warrior;
-        return this;
     }
 
     public Army addUnits(Supplier<Warrior> factory, int quantity) {
