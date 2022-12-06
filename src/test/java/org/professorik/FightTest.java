@@ -121,13 +121,13 @@ class FightTest {
     @ParameterizedTest
     @ValueSource(classes = {Warrior.class, Knight.class})
     void name(Class<?> cls) {
-        assertTrue(Warrior.class.isAssignableFrom(cls));
+        assertTrue(IWarrior.class.isAssignableFrom(cls));
     }
 
     @ParameterizedTest(name = "{index} - first = {0} against second = {1}, first wins?: {2}")
     @MethodSource
     @DisplayName("Duel for two warriors")
-    void testTwoWarriorsDuel(Warrior warrior1, Warrior warrior2, boolean expected) {
+    void testTwoWarriorsDuel(IWarrior warrior1, IWarrior warrior2, boolean expected) {
         var res = Battle.fight(warrior1, warrior2);
 
         assertEquals(expected, res);

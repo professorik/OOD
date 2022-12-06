@@ -1,10 +1,9 @@
 package org.professorik.characters;
 
-public class Rookie extends Warrior {
-    static final int ATTACK = 1;
+import org.professorik.characters.interfaces.AbstractWarriorDecorator;
 
-    @Override
-    public int getAttack() {
-        return ATTACK;
+public class Rookie extends AbstractWarriorDecorator {
+    public Rookie() {
+        super(new Warrior(50, 1));
     }
 }

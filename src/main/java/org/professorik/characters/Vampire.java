@@ -1,34 +1,43 @@
 package org.professorik.characters;
 
-public class Vampire extends Warrior {
-    static final int ATTACK = 4;
-    static final int VAMPIRISM = 50;
+import org.professorik.characters.interfaces.AbstractWarriorDecorator;
+import org.professorik.characters.interfaces.CanReceiveDamage;
+import org.professorik.characters.interfaces.HasVampirism;
+
+public class Vampire extends AbstractWarriorDecorator implements HasVampirism {
+    private final int VAMPIRISM;
 
     public Vampire() {
-        super(40);
+        super(new Warrior(40, 4));
+        this.VAMPIRISM = 50;
     }
 
-    private int getVampirism() {
+    public Vampire(IWarrior warrior, int vampirism) {
+        super(warrior);
+        VAMPIRISM = vampirism;
+    }
+
+    @Override
+    public int getVampirism() {
         return VAMPIRISM;
     }
 
     @Override
-    public int hit(Warrior opponent) {
-        var hit = super.hit(opponent);
-        setHealth(getHealth() + hit * getVampirism() / 100);
-        return hit;
+    public void hit(CanReceiveDamage w) {
+        var healthBefore = w.getHealth();
+        super.hit(w);
+        var dealtDamage = healthBefore - w.getHealth();
+        var selfHealing = dealtDamage * getVampirism() / 100;
+        healBy(selfHealing);
     }
 
     @Override
-    public int straightHit(Warrior opponent) {
-        var hit = super.straightHit(opponent);
-        setHealth(getHealth() + hit * getVampirism() / 100);
-        return hit;
-    }
-
-    @Override
-    public int getAttack() {
-        return ATTACK;
+    public void straightHit(CanReceiveDamage w) {
+        var healthBefore = w.getHealth();
+        super.straightHit(w);
+        var dealtDamage = healthBefore - w.getHealth();
+        var selfHealing = dealtDamage * getVampirism() / 100;
+        healBy(selfHealing);
     }
 
     @Override

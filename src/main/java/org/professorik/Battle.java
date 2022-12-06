@@ -1,12 +1,12 @@
 package org.professorik;
 
-import org.professorik.characters.Warrior;
+import org.professorik.characters.IWarrior;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Battle {
-    public static boolean fight(Warrior warrior1, Warrior warrior2) {
+    public static boolean fight(IWarrior warrior1, IWarrior warrior2) {
         while (warrior1.isAlive() && warrior2.isAlive()) {
             warrior1.hit(warrior2);
             if (warrior2.isAlive()) {
@@ -37,7 +37,7 @@ public class Battle {
         return army1.firstAliveIterator().hasNext();
     }
 
-    private static void fightStraight(Warrior warrior1, Warrior warrior2) {
+    private static void fightStraight(IWarrior warrior1, IWarrior warrior2) {
         while (warrior1.isAlive() && warrior2.isAlive()) {
             warrior1.straightHit(warrior2);
             if (warrior2.isAlive()) {
@@ -46,11 +46,11 @@ public class Battle {
         }
     }
 
-    private record Pair(Warrior first, Warrior second){}
+    private record Pair(IWarrior first, IWarrior second){}
 
     private static Iterable<Pair> zip(Army army1, Army army2) {
-        List<Warrior> fighters1 = army1.getLiving();
-        List<Warrior> fighters2 = army2.getLiving();
+        List<IWarrior> fighters1 = army1.getLiving();
+        List<IWarrior> fighters2 = army2.getLiving();
         List<Pair> res = new ArrayList<>();
         for (int i = 0; i < Math.min(fighters1.size(), fighters2.size()); i++) {
             res.add(new Pair(fighters1.get(i), fighters2.get(i)));

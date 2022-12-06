@@ -1,27 +1,31 @@
 package org.professorik.characters;
 
-public class Defender extends Warrior {
-    static final int ATTACK = 3;
-    static final int DEFENCE = 2;
+import org.professorik.characters.interfaces.AbstractWarriorDecorator;
+import org.professorik.characters.interfaces.HasDefence;
+
+public class Defender extends AbstractWarriorDecorator implements HasDefence {
+    private final int DEFENCE;
 
     public Defender() {
-        super(60);
+        super(new Warrior(60, 3));
+        this.DEFENCE = 2;
     }
 
+    public Defender(IWarrior warrior, int defence) {
+        super(warrior);
+        this.DEFENCE = defence;
+    }
+
+    @Override
     public int getDefence() {
         return DEFENCE;
     }
 
     @Override
-    protected int receiveDamage(int damage) {
+    public int receiveDamage(int damage) {
         var dmg = Math.max(0, damage - getDefence());
         super.receiveDamage(dmg);
         return dmg;
-    }
-
-    @Override
-    public int getAttack() {
-        return ATTACK;
     }
 
     @Override

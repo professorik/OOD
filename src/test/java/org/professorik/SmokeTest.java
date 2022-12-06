@@ -3,7 +3,6 @@ package org.professorik;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.professorik.characters.*;
-import org.professorik.characters.interfaces.IWarrior;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,7 +1,8 @@
 package org.professorik.characters.interfaces;
 
-import org.professorik.characters.Warrior;
+import org.professorik.characters.IWarrior;
 
 public interface HasWarriorBehind {
-    Warrior getWarriorBehind();
+    IWarrior getWarriorBehind();
+    void setNextBehind(IWarrior w);
 }

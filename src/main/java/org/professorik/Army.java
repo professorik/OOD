@@ -1,21 +1,22 @@
 package org.professorik;
 
+import org.professorik.characters.IWarrior;
 import org.professorik.characters.Warrior;
 
 import java.util.*;
 import java.util.function.Supplier;
 
 public class Army {
-    private final Collection<Warrior> troops = new ArrayList<>();
-    private Warrior last;
+    private final Collection<IWarrior> troops = new ArrayList<>();
+    private IWarrior last;
 
-    public Iterator<Warrior> firstAliveIterator() {
+    public Iterator<IWarrior> firstAliveIterator() {
         return new FirstAliveIterator();
     }
 
-    private class FirstAliveIterator implements Iterator<Warrior> {
-        Iterator<Warrior> it = troops.iterator();
-        Warrior champion;
+    private class FirstAliveIterator implements Iterator<IWarrior> {
+        Iterator<IWarrior> it = troops.iterator();
+        IWarrior champion;
 
         @Override
         public boolean hasNext() {
@@ -30,7 +31,7 @@ public class Army {
         }
 
         @Override
-        public Warrior next() {
+        public IWarrior next() {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
@@ -38,11 +39,11 @@ public class Army {
         }
     }
 
-    public List<Warrior> getLiving() {
-        return troops.stream().filter(Warrior::isAlive).toList();
+    public List<IWarrior> getLiving() {
+        return troops.stream().filter(IWarrior::isAlive).toList();
     }
 
-    public void addUnits(Warrior warrior) {
+    public void addUnits(IWarrior warrior) {
         if (last != null) {
             last.setNextBehind(warrior);
         }
@@ -50,7 +51,7 @@ public class Army {
         last = warrior;
     }
 
-    public Army addUnits(Supplier<Warrior> factory, int quantity) {
+    public Army addUnits(Supplier<IWarrior> factory, int quantity) {
         for (int i = 0; i < quantity; i++) {
             addUnits(factory.get());
         }
